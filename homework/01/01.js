@@ -20,7 +20,7 @@ app.use((ctx) => {
             </body>
         </html>`
     else if(ctx.request.url.pathname=="/to/nqu/")
-        ctx.response.redirect("https://csie.nqu.edu.tw/")
+        ctx.response.redirect("https://www.nqu.edu.tw/")
     else if(ctx.request.url.pathname=="/to/nqu/csie/")
         ctx.response.redirect("https://csie.nqu.edu.tw/")
 });
