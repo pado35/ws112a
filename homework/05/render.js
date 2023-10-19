@@ -76,6 +76,7 @@ export function list(posts) {
   let content = `
   <h1>通訊錄</h1>
   <p>你有<strong>${posts.length}</strong>位聯絡人!</p>
+  <p><a href="/post/search">查詢聯絡人</p>
   <p><a href="/post/new">新增聯絡人</a></p>
   <ul id="posts">
     ${list.join('\n')}
@@ -100,5 +101,26 @@ export function show(post) {
   return layout(post.title, `
     <h1>${post.title}</h1>
     <pre>${post.body}</pre>
+  `)
+}
+
+export function search() {
+  return layout('查詢聯絡人', `
+  <h1>查詢聯絡人</h1>
+  <form action="/search" method="post">
+    <p><input type="text" placeholder="姓名" name="name" required></p>
+    <p><input type="submit" value="查詢"></p>
+  </form>
+  `)
+}
+
+export function notfound() {
+  return layout('查詢聯絡人', `
+  <h1>查詢聯絡人</h1>
+  <form action="/search" method="post">
+    <p><input type="text" placeholder="姓名" name="name" required></p>
+    <p><input type="submit" value="查詢"></p>
+  </form>
+  <h1>查無此人</h1>
   `)
 }
