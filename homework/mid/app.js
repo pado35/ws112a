@@ -40,8 +40,7 @@ async function parseFormBody(body) {
 }
 
 async function mainUi(ctx) {
-  // ctx.response.body = await render.mainUi()
-  ctx.response.body = await render.gameUi()
+  ctx.response.body = await render.mainUi()
 }
 
 async function loginUi(ctx) {

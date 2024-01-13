@@ -15,7 +15,8 @@ export function layout(head, content) {
 
 export function mainUi() {
   return layout(`
-  <title>Main</title>`,`
+  <title>Main</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style.css">`,`
   <h1>Minesweeper</h1>
   <ol>
     <li><a href="/login">登入</a></li>
