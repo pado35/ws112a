@@ -16,7 +16,7 @@ export function layout(head, content) {
 export function mainUi() {
   return layout(`
   <title>Main</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style.css">`,`
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style1.css">`,`
   <h1>Minesweeper</h1>
   <ol>
     <li><a href="/login">登入</a></li>
@@ -28,7 +28,7 @@ export function mainUi() {
 export function loginUi() {
   return layout(`
   <title>loginUi</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style.css">`, `
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style1.css">`, `
   <h1>登入帳號</h1>
     <form action="/login "method="post">
       <label for="username">帳號：</label>
@@ -43,7 +43,7 @@ export function loginUi() {
 export function signupUi() {
   return layout(`
   <title>signupUi</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style.css">`, `
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style1.css">`, `
   <h1>註冊帳號</h1>
     <form action="/signup "method="post">
       <label for="username">帳號：</label>
@@ -59,7 +59,7 @@ export function gameUi() {
   return layout(`
   <title>Minesweeper</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.js"></link>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/style.css">`, `
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.css">`, `
   <h1>Mines: <span id="mines-count">0</span></h1>
   <div id="board"></div><br>
   <button id="flag-button">🚩</button>
@@ -68,7 +68,8 @@ export function gameUi() {
 
 
 export function fail() {
-  return layout('<title>Fail</title>', `
+  return layout(`
+  '<title>Fail</title>'`, `
   <h1>Fail!</h1>
   You may <a href="/">read all Post</a> or <a href="JavaScript:window.history.back()">go back</a> !
   `)
