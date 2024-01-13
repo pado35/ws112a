@@ -1,75 +1,90 @@
 import { Application, Router, send } from "https://deno.land/x/oak/mod.ts";
- 
-const peoples = new Map();
-peoples.set("john", {
-  account: "john",
-  password: "123456789",
-});
-peoples.set("mary", {
-  account: "mary",
-  password: "987654321",
-});
+import * as render from './render.js'
+import { DB } from "https://deno.land/x/sqlite/mod.ts";
+import { Session } from "https://deno.land/x/oak_sessions/mod.ts";
+
+const db = new DB("blog.db");
+db.query("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
 
 const router = new Router();
 router
-  .get("/", (ctx) => ctx.response.redirect('/public/index'))
-  .post("/people/login", async (ctx) => {
-    const body = ctx.request.body()
-    if (body.type === "form") {
-      const pairs = await body.value
-      //console.log('pairs=', pairs)
-      const params = {}
-      for (const [key, value] of pairs) {
-        params[key] = value
-      }
-      console.log('params=', params)
-      let account = params['account']
-      let password = params['password']
-      //console.log(`account=${account} password=${password}`)
-      ctx.response.type = 'text/html'
-      if (peoples.has(account) && peoples.get(account).password == password) {
-        ctx.response.body = `
-          <h1>Login success</h1>
-          <h2><a href="/public/index.html">Enter the system</a></h2>`
-      } else {
-        ctx.response.body = `
-          <h1>Login failed, please check whether the account number and password are correct.</h1>`
-      }
-    }
-  })
-  .post("/people/sign_up", async (ctx) => {
-    const body = ctx.request.body()
-    if (body.type === "form") {
-      const pairs = await body.value
-      console.log('pairs=', pairs)
-      const params = {}
-      for (const [key, value] of pairs) {
-        params[key] = value
-      }
-      console.log('params=', params)
-      let account = params['account']
-      let password = params['password']
-      console.log(`account=${account} password=${password}`)
-      if (peoples.get(account)) {
-        ctx.response.body = `
-        <h1>Sign up failed</h1>
-        <h2>Account has been used</h2>`
-      } else {
-        peoples.set(account, {account, password})
-        ctx.response.type = 'text/html'
-        ctx.response.body = `
-        <h1>Sign up success</h1>
-        <h2><a href="/public/login.html">Login the system</a></h2>`
-      }
-    }
-  });
-  
+  .get("/", mainUi)
+  .get("/login", loginUi)
+  .post("/login", login)
+  .get("/signup", signupUi)
+  .post("/signup", signup)
+  // .get("/game", gameUi)
+
 
 const app = new Application();
-
+app.use(Session.initMiddleware())
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-console.log('start at : http://127.0.0.1:8001')
+function userQuery(sql) {
+  let list = []
+  var results = db.query(sql)
+  for (const [id, username, password, email] of results) {
+    list.push({id, username, password, email})
+  }
+  return list
+}
 
-await app.listen({ port: 8001 });
+async function parseFormBody(body) {
+  const pairs = await body.value
+  const obj = {}
+  for (const [key, value] of pairs) {
+    obj[key] = value
+  }
+  return obj
+}
+
+async function mainUi(ctx) {
+  // ctx.response.body = await render.mainUi()
+  ctx.response.body = await render.gameUi()
+}
+
+async function loginUi(ctx) {
+  ctx.response.body = await render.loginUi()
+}
+
+async function login(ctx) {
+  const body = ctx.request.body()
+  if (body.type === "form") {
+    var user = await parseFormBody(body)
+    var dbUsers = userQuery(`SELECT id, username, password FROM users WHERE username='${user.username}'`)
+    var dbUser = dbUsers[0]
+    if (dbUser.password === user.password) {
+      ctx.state.session.set('user', user)
+      console.log('session.user=', await ctx.state.session.get('user'))
+      ctx.response.redirect('/game');
+    } else {
+      ctx.response.body = render.fail()
+    }
+  }
+}
+
+async function signupUi(ctx) {
+  ctx.response.body = await render.signupUi()
+}
+
+async function signup(ctx) {
+  
+}
+
+async function gameUi(ctx) {
+  
+}
+
+
+console.log('start at : http://127.0.0.1:8000')
+
+await app.listen({ port: 8000 });
+
+
+
+
+// var user = await ctx.state.Session.get('user')
+// if (user !=null) {
+//   ctx.state.Session.set('user', null)
+// }
