@@ -13,7 +13,7 @@ router
   .post("/login", login)
   .get("/signup", signupUi)
   .post("/signup", signup)
-  // .get("/game", gameUi)
+  .get("/game", gameUi)
 
 
 const app = new Application();
@@ -53,6 +53,7 @@ async function login(ctx) {
     var user = await parseFormBody(body)
     var dbUsers = userQuery(`SELECT id, username, password FROM users WHERE username='${user.username}'`)
     var dbUser = dbUsers[0]
+    console.log('userdata: '+ dbUser)
     if (dbUser.password === user.password) {
       ctx.state.session.set('user', user)
       console.log('session.user=', await ctx.state.session.get('user'))
@@ -68,22 +69,23 @@ async function signupUi(ctx) {
 }
 
 async function signup(ctx) {
-  
+  const body = ctx.request.body()
+  if (body.type === "form") {
+    var user = await parseFormBody(body)
+    var dbUsers = userQuery(`SELECT id, username, password FROM users WHERE username='${user.username}'`)
+    if (dbUsers.length === 0) {
+      db.query("INSERT INTO users (username, password) VALUES (?, ?)", [user.username, user.password]);
+      ctx.response.redirect('/');
+    } else 
+      ctx.response.body = render.fail()
+  }
 }
 
 async function gameUi(ctx) {
-  
+  ctx.response.body = await render.gameUi()
 }
 
 
 console.log('start at : http://127.0.0.1:8000')
 
 await app.listen({ port: 8000 });
-
-
-
-
-// var user = await ctx.state.Session.get('user')
-// if (user !=null) {
-//   ctx.state.Session.set('user', null)
-// }

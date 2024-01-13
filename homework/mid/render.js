@@ -58,8 +58,8 @@ export function signupUi() {
 export function gameUi() {
   return layout(`
   <title>Minesweeper</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.js"></link>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.css">`, `
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.css">
+  <script src="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.js"></script>`, `
   <h1>Mines: <span id="mines-count">0</span></h1>
   <div id="board"></div><br>
   <button id="flag-button">🚩</button>
@@ -71,6 +71,6 @@ export function fail() {
   return layout(`
   '<title>Fail</title>'`, `
   <h1>Fail!</h1>
-  You may <a href="/">read all Post</a> or <a href="JavaScript:window.history.back()">go back</a> !
+  You may <a href="JavaScript:window.history.back()">go back</a> !
   `)
 }
