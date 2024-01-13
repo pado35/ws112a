@@ -58,8 +58,8 @@ export function signupUi() {
 export function gameUi() {
   return layout(`
   <title>Minesweeper</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.css">
-  <script src="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.js"></script>`, `
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/minesweeper/minesweeper.css">
+  <script src="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/minesweeper/minesweeper.js"></script>`, `
   <h1>Mines: <span id="mines-count">0</span></h1>
   <div id="board"></div><br>
   <button id="flag-button">🚩</button>
