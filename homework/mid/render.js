@@ -3,7 +3,6 @@ export function layout(head, content) {
     <html>
     <head>
       ${head}
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style.css">
     </head>
     <body>
       <section id="content">
@@ -27,7 +26,8 @@ export function mainUi() {
 
 export function loginUi() {
   return layout(`
-  <title>loginUi</title>`, `
+  <title>loginUi</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style.css">`, `
   <h1>登入帳號</h1>
     <form action="/login "method="post">
       <label for="username">帳號：</label>
@@ -41,7 +41,8 @@ export function loginUi() {
 
 export function signupUi() {
   return layout(`
-  <title>signupUi</title>`, `
+  <title>signupUi</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/style.css">`, `
   <h1>註冊帳號</h1>
     <form action="/signup "method="post">
       <label for="username">帳號：</label>
@@ -56,7 +57,8 @@ export function signupUi() {
 export function gameUi() {
   return layout(`
   <title>Main</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.js"></link>`, `
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/minesweeper.js"></link>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pado35/ws112a/homework/mid/public/style.css">`, `
   <h1>Mines: <span id="mines-count">0</span></h1>
   <div id="board"></div><br>
   <button id="flag-button">🚩</button>
@@ -65,7 +67,7 @@ export function gameUi() {
 
 
 export function fail() {
-  return layout('Fail', `
+  return layout('<title>Fail</title>', `
   <h1>Fail!</h1>
   You may <a href="/">read all Post</a> or <a href="JavaScript:window.history.back()">go back</a> !
   `)
