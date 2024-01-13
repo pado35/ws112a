@@ -12,14 +12,7 @@ peoples.set("mary", {
 
 const router = new Router();
 router
-  .get("/", (ctx) => ctx.response.redirect('/public/'))
-  .get("/public/(.*)", async (ctx) => {
-    let wpath = ctx.params[0]
-    await send(ctx, wpath, {
-      root: Deno.cwd()+"/public/",
-      index: "index.html",
-    })
-  })
+  .get("/", (ctx) => ctx.response.redirect('/public/index'))
   .post("/people/login", async (ctx) => {
     const body = ctx.request.body()
     if (body.type === "form") {

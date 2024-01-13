@@ -52,5 +52,5 @@ async function create (ctx) {
   }
 }
 
-console.log('Server run at http://127.0.0.1:8001')
-await app.listen({ port: 8001 })
+console.log('Server run at http://127.0.0.1:8003')
+await app.listen({ port: 8003 })
